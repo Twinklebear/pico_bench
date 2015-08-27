@@ -72,7 +72,7 @@ int main(){
 	auto stats = bencher([](){ return std::chrono::milliseconds{1}; });
 	std::cout << "Self timed lambda " << stats << "\n";
 
-	// This lamdba will be timed externally
+	// This lambda will be timed externally
 	stats = bencher([](){ std::cout << "Hi there\n"; });
 	std::cout << "External timed lambda " << stats << "\n";
 	return 0;
