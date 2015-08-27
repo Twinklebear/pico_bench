@@ -1,5 +1,6 @@
 #include <chrono>
 #include <thread>
+#include <iostream>
 #include <pico_bench.h>
 
 struct BenchVoid {
@@ -29,8 +30,7 @@ int main(int, char**){
 			std::cout << "hi lambda\n";
 			std::this_thread::sleep_for(std::chrono::milliseconds{10});
 	});
-	std::cout << "lambda median time: " << stats.median().count() << "ms\n"
-		<< "\tmean time: " << stats.mean().count() << "\n";
+	std::cout << "Lambda " << stats << "\n";
 	return 0;
 }
 
