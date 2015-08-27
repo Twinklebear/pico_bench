@@ -6,8 +6,8 @@ A minimal C++14 benchmarking library.
 Documentation
 ---
 
-pico\_bench aims to make as few assumptions about the code being benchmarked, as such there
-are two options for running benchmarks and collecting statistics. First though we create
+pico\_bench aims to make as few assumptions as possible about the code being benchmarked. To this end
+there are two options for running benchmarks and collecting statistics. First though we create
 a benchmarker to run the code, specifying a maximum number of iterations and max time
 to run the benchmark for. The benchmark will stop running when either limit has been reached.
 
