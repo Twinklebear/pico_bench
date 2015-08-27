@@ -132,13 +132,13 @@ public:
 	{}
 	template<typename Fn>
 	typename std::enable_if<std::is_void<decltype(std::declval<Fn>()())>::value, Statistics>::type
-	operator()(Fn fn){
+	operator()(Fn fn) const {
 		return (*this)(BenchWrapper<Fn>{fn});
 	}
 	template<typename Fn>
 	typename std::enable_if<std::is_same<decltype(std::declval<Fn>()()), std::chrono::milliseconds>::value,
 		Statistics>::type
-	operator()(Fn fn){
+	operator()(Fn fn) const {
 		// Do a single un-timed warm up run
 		fn();
 		std::chrono::milliseconds elapsed{0};
