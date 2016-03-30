@@ -158,6 +158,8 @@ public:
 template<typename T>
 std::ostream& operator<<(std::ostream &os, const pico_bench::Statistics<T> &stats){
 	os << "Statistics:\n"
+		<< "\tmax: " << stats.max().count() << stats.time_suffix << "\n"
+		<< "\tmin: " << stats.min().count() << stats.time_suffix << "\n"
 		<< "\tmedian: " << stats.median().count() << stats.time_suffix << "\n"
 		<< "\tmedian abs dev: " << stats.median_abs_dev().count() << stats.time_suffix << "\n"
 		<< "\tmean: " << stats.mean().count() << stats.time_suffix << "\n"
