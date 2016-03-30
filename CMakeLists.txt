@@ -15,8 +15,7 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 	endif()
 endif()
 
-set(PICO_BENCH_INSTALL_DIR "${PICO_BENCH_SOURCE_DIR}/bin")
-
 include_directories(include)
+add_subdirectory(src)
 add_subdirectory(examples)
 
