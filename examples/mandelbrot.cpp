@@ -37,10 +37,11 @@ int main(int, char**){
 	const size_t w = 128;
 	const size_t h = 128;
 	std::vector<uint8_t> image(w * h * 3, 0);
-	pico_bench::Benchmarker bencher{100, std::chrono::seconds{5}};
-	const auto stats = bencher([&image](){
+	pico_bench::Benchmarker<std::chrono::milliseconds> bencher{100, std::chrono::seconds{5}};
+	auto stats = bencher([&image](){
 		mandelbrot(w, h, image);
 	});
+	stats.time_suffix = "ms";
 	std::cout << "Mandelbrot " << stats << "\n";
 	save_bmp("mandelbrot.bmp", w, h, image.data());
 	return 0;

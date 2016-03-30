@@ -23,13 +23,14 @@ struct BenchInvalid {
 };
 
 int main(int, char**){
-	pico_bench::Benchmarker bencher{2, std::chrono::seconds{1}};
+	pico_bench::Benchmarker<std::chrono::milliseconds> bencher{2, std::chrono::seconds{1}};
 	bencher(BenchVoid{});
 	bencher(BenchNanos{});
 	auto stats = bencher([](){
 			std::cout << "hi lambda\n";
 			std::this_thread::sleep_for(std::chrono::milliseconds{10});
 	});
+	stats.time_suffix = "ms";
 	std::cout << "Lambda " << stats << "\n";
 	return 0;
 }
