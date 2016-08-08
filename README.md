@@ -1,7 +1,7 @@
 pico\_bench
 ===
 
-A minimal C++14 benchmarking library.
+A minimal C++11 benchmarking library.
 
 Documentation
 ---

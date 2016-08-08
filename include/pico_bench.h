@@ -40,7 +40,7 @@ public:
 		std::vector<T> deviations;
 		deviations.reserve(samples.size());
 		std::transform(std::begin(samples), std::end(samples), std::back_inserter(deviations),
-			[&m](const auto &t){
+			[&m](const T &t){
 				return T{std::abs((t - m).count())};
 			});
 		std::sort(std::begin(deviations), std::end(deviations));
@@ -53,7 +53,7 @@ public:
 	T std_dev() const {
 		const auto m = mean();
 		auto val = std::accumulate(std::begin(samples), std::end(samples), T{0},
-			[&m](const auto &p, const auto &t){
+			[&m](const T &p, const T &t){
 				return T{static_cast<rep>(p.count() + std::pow((t - m).count(), 2))};
 			});
 		return T{static_cast<rep>(std::sqrt(1.0 / static_cast<double>(samples.size())
@@ -68,6 +68,9 @@ public:
 	size_t size() const {
 		return samples.size();
 	}
+  const float& operator[](size_t i) const {
+    return samples[i];
+  }
 
 private:
 	// Winsorize the data, sets all entries above 100 - limit percentile and below limit percentile
