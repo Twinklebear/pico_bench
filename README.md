@@ -9,10 +9,11 @@ Documentation
 pico\_bench aims to make as few assumptions as possible about the code being benchmarked. To this end
 there are two options for running benchmarks and collecting statistics. First though we create
 a benchmarker to run the code, specifying a maximum number of iterations and max time
-to run the benchmark for. The benchmark will stop running when either limit has been reached.
+to run the benchmark for along with the time representation we want to store our measurements in.
+The benchmark will stop running when either limit has been reached.
 
 ```c++
-auto bencher = pico_bench::Benchmarker{10, std::chrono::seconds{1}};
+auto bencher = pico_bench::Benchmarker<milliseconds>{10, std::chrono::seconds{1}};
 ```
 
 The benchmarker can take a functor or a lambda, the function can either return a run time
@@ -32,10 +33,11 @@ Your functor should define `operator()` which will either return the measured ti
 #include <chrono>
 #include <pico_bench.h>
 
+using namespace std::chrono;
 struct MyFn {
 	// This functor will time itself to exclude measuring time spent during setup
-	std::chrono::milliseconds operator()(){
-		return std::chrono::milliseconds{1};
+	milliseconds operator()(){
+		return milliseconds{1};
 	}
 };
 
@@ -47,7 +49,6 @@ struct MyVoidFn {
 };
 
 int main(){
-	using namespace std::chrono;
 	// Note: passing no timeout will enforce that all iterations are run
 	auto bencher = pico_bench::Benchmarker<milliseconds>{10, seconds{1}};
 	auto stats = bencher(MyFn{});
@@ -69,9 +70,10 @@ You can also provide a lambda function which will either return the measured tim
 #include <pico_bench.h>
 
 int main(){
-	auto bencher = pico_bench::Benchmarker{10, std::chrono::seconds{1}};
+	using namespace std::chrono;
+	auto bencher = pico_bench::Benchmarker<milliseconds>{10, seconds{1}};
 	// This lambda will time itself to exclude measuring time spent during setup
-	auto stats = bencher([](){ return std::chrono::milliseconds{1}; });
+	auto stats = bencher([](){ return milliseconds{1}; });
 	std::cout << "Self timed lambda " << stats << "\n";
 
 	// This lambda will be timed externally
