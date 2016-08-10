@@ -68,7 +68,7 @@ public:
 	size_t size() const {
 		return samples.size();
 	}
-	const float& operator[](size_t i) const {
+	const T& operator[](size_t i) const {
 		return samples[i];
 	}
 
