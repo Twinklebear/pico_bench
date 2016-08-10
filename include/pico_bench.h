@@ -68,9 +68,9 @@ public:
 	size_t size() const {
 		return samples.size();
 	}
-  const float& operator[](size_t i) const {
-    return samples[i];
-  }
+	const float& operator[](size_t i) const {
+		return samples[i];
+	}
 
 private:
 	// Winsorize the data, sets all entries above 100 - limit percentile and below limit percentile
@@ -150,7 +150,7 @@ public:
 		fn();
 		T elapsed{0};
 		std::vector<T> samples;
-		for (size_t i = 0; i < MAX_ITER && elapsed < MAX_RUNTIME; ++i, elapsed += samples.back()){
+		for (size_t i = 0; i < MAX_ITER && (MAX_RUNTIME.count() != 0 && elapsed < MAX_RUNTIME); ++i, elapsed += samples.back()){
 			samples.push_back(fn());
 		}
 		return stats_type{samples};
