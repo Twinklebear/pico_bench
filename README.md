@@ -48,7 +48,7 @@ struct MyVoidFn {
 
 int main(){
 	using namespace std::chrono;
-	// Note: passing 0 seconds timeout will enforce no max runtime
+	// Note: passing no timeout will enforce that all iterations are run
 	auto bencher = pico_bench::Benchmarker<milliseconds>{10, seconds{1}};
 	auto stats = bencher(MyFn{});
 	std::cout << "MyFn " << stats << "\n";

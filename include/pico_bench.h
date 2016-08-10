@@ -132,8 +132,13 @@ public:
 	using stats_type = Statistics<T>;
 
 	// Benchmark the functions either max_iter times or until max_runtime seconds have elapsed
+	// max_runtime should be > 0
 	Benchmarker(const size_t max_iter, const std::chrono::seconds max_runtime)
 		: MAX_ITER(max_iter), MAX_RUNTIME(std::chrono::duration_cast<T>(max_runtime))
+	{}
+	// Create a benchmarker that will run the function for the desired number of iterations,
+	// regardless of how long it takes
+	Benchmarker(const size_t max_iter) : MAX_ITER(max_iter), MAX_RUNTIME(0)
 	{}
 
 	template<typename Fn>
@@ -150,7 +155,9 @@ public:
 		fn();
 		T elapsed{0};
 		std::vector<T> samples;
-		for (size_t i = 0; i < MAX_ITER && (MAX_RUNTIME.count() != 0 && elapsed < MAX_RUNTIME); ++i, elapsed += samples.back()){
+		for (size_t i = 0; i < MAX_ITER && (MAX_RUNTIME.count() == 0 || elapsed < MAX_RUNTIME);
+				++i, elapsed += samples.back())
+		{
 			samples.push_back(fn());
 		}
 		return stats_type{samples};
